@@ -1,9 +1,10 @@
-> As of version `5.0.0` this library exposes [ES modules](http://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules). Use [esm](https://github.com/standard-things/esm) to consume it or an ES module aware bundler such as [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org) to bundle it for the browser.
+# @jylups/cmmn-moddle
 
+[![CI](https://github.com/jylups/cmmn-moddle/actions/workflows/ci.yml/badge.svg)](https://github.com/jylups/cmmn-moddle/actions/workflows/ci.yml)
 
-# cmmn-moddle
+> Maintained fork of [bpmn-io/cmmn-moddle](https://github.com/bpmn-io/cmmn-moddle), which is no longer developed, for the [Flowable CMMN editor](https://github.com/jylups/cmmn-js-env). It is published as `@jylups/cmmn-moddle` from version `5.1.0`.
 
-[![Build Status](https://travis-ci.com/bpmn-io/cmmn-moddle.svg?branch=master)](https://travis-ci.com/bpmn-io/cmmn-moddle)
+> This library exposes [ES modules](http://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules). Bundle it for the browser with an ES module aware bundler such as [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org); in Node, compile it with a transpiler such as [@babel/register](https://babeljs.io/docs/babel-register).
 
 Read and write CMMN 1.1 diagram files in NodeJS and the browser.
 
@@ -12,10 +13,14 @@ __cmmn-moddle__ uses the [CMMN 1.1 meta-model](http://www.omg.org/spec/CMMN/) to
 
 ## Usage
 
-Get the library via [npm package](https://www.npmjs.org/package/cmmn-moddle). Bundle it for the web using [browserify](http://browserify.org) or [webpack](https://webpack.github.io).
+Get the library via the [npm package](https://www.npmjs.com/package/@jylups/cmmn-moddle):
+
+```bash
+npm install @jylups/cmmn-moddle
+```
 
 ```javascript
-import CmmnModdle from 'cmmn-moddle';
+import CmmnModdle from '@jylups/cmmn-moddle';
 
 var moddle = new CmmnModdle();
 
@@ -46,8 +51,8 @@ moddle.fromXML(xmlStr, function(err, definitions) {
 
 ## Resources
 
-*   [Issues](https://github.com/bpmn-io/cmmn-moddle/issues)
-*   [Examples](https://github.com/bpmn-io/cmmn-moddle/tree/master/test/spec/xml)
+*   [Issues](https://github.com/jylups/cmmn-js-env/issues)
+*   [Examples](https://github.com/jylups/cmmn-moddle/tree/master/test/spec/xml)
 
 
 ## Building the Project
