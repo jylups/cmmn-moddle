@@ -6,7 +6,7 @@
     "all": "run-s lint test",
     "lint": "eslint .",
     "dev": "npm test -- --watch",
-    "test": "mocha -r esm --reporter=spec --recursive test"
+    "test": "mocha -r ./test/register --reporter=spec --recursive test"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^8.1.2",
+    "@babel/preset-env": "^8.0.7",
+    "@babel/register": "^8.1.2",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-plugin-bpmn-io": "^0.5.2",
-    "esm": "^3.0.15",
     "ids": "^0.2.0",
     "jsondiffpatch": "^0.1.4",
     "mocha": "^4.0.1",
