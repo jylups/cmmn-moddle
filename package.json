@@ -1,6 +1,6 @@
 {
-  "name": "cmmn-moddle",
-  "version": "5.0.0",
+  "name": "@jylups/cmmn-moddle",
+  "version": "5.1.0",
   "description": "A moddle wrapper for CMMN 1.1",
   "scripts": {
     "all": "run-s lint test",
@@ -10,7 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/cmmn-moddle"
+    "url": "https://github.com/jylups/cmmn-moddle"
+  },
+  "bugs": {
+    "url": "https://github.com/jylups/cmmn-js-env/issues"
   },
   "keywords": [
     "cmmn",
@@ -46,5 +49,8 @@
     "min-dash": "^3.0.0",
     "moddle": "^4.1.0",
     "moddle-xml": "^7.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
