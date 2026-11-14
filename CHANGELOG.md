@@ -7,6 +7,7 @@ All notable changes to [@jylups/cmmn-moddle](https://github.com/jylups/cmmn-modd
 ___Note:__ Yet to be released changes appear here._
 
 * `CHORE`: publish from GitHub releases with npm trusted publishing instead of a stored npm token
+* `CHORE`: publish prerelease versions under the `next` dist-tag
 
 ## 5.1.0
 
