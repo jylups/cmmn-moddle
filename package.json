@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jylups/cmmn-moddle"
+    "url": "git+https://github.com/jylups/cmmn-moddle.git"
   },
   "bugs": {
     "url": "https://github.com/jylups/cmmn-js-env/issues"
