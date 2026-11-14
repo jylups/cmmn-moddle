@@ -44,6 +44,10 @@ describe('cmmn-moddle - edit', function() {
 
   describe('open and save', function() {
 
+    // XSD validation runs in a Java process; starting it and compiling the
+    // validator can take several seconds on a fresh CI runner
+    this.timeout(30000);
+
     it('should valid diagram', function(done) {
 
       // given
