@@ -57,6 +57,11 @@ var {
 `fromXML` and `toXML` return Promises. `fromXML` resolves with `{ rootElement, references, warnings, elementsById }`, and an error it rejects with carries the `warnings` collected so far. Version `6.0.0` replaced the callbacks of earlier versions.
 
 
+### Extension packages
+
+Pass extension packages, such as [Flowable's](https://github.com/jylups/flowable-cmmn-moddle), to the constructor: `new CmmnModdle({ flowable: flowableDescriptor })`. An element of an extension package that has no type in it, for example a custom `flowable:*` extension element, is read as a generic element (`$type`, attributes, `$body`, `$children`) and written back as it was read. Unknown elements of the CMMN 1.1 packages are reported as warnings and dropped.
+
+
 ## Resources
 
 *   [Issues](https://github.com/jylups/cmmn-js-env/issues)

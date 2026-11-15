@@ -6,6 +6,8 @@ All notable changes to [@jylups/cmmn-moddle](https://github.com/jylups/cmmn-modd
 
 ___Note:__ Yet to be released changes appear here._
 
+* `FEAT`: keep elements of an extension package that have no type in it, such as custom `flowable:*` extension elements, as generic elements with their attributes, text and children, instead of dropping them; unknown elements of the CMMN 1.1 packages are still reported and dropped ([jylups/cmmn-js-env#16](https://github.com/jylups/cmmn-js-env/issues/16))
+
 ## 6.0.0
 
 * `CHORE`: publish from GitHub releases with npm trusted publishing instead of a stored npm token
