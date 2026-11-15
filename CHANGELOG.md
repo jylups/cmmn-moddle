@@ -6,6 +6,8 @@ All notable changes to [@jylups/cmmn-moddle](https://github.com/jylups/cmmn-modd
 
 ___Note:__ Yet to be released changes appear here._
 
+## 6.1.1
+
 * `FIX`: read attributes with white space around their `=` (`name ="value"`, `name= "value"`), which XML allows; the element was reported as unparsable and its attributes were lost ([jylups/cmmn-js-env#43](https://github.com/jylups/cmmn-js-env/issues/43))
 
 ## 6.1.0
