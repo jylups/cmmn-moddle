@@ -8,6 +8,17 @@ ___Note:__ Yet to be released changes appear here._
 
 * `CHORE`: publish from GitHub releases with npm trusted publishing instead of a stored npm token
 * `CHORE`: publish prerelease versions under the `next` dist-tag
+* `FEAT`: make `fromXML` and `toXML` Promise based
+* `FEAT`: publish an ES module that plain Node 20.12 or later can import (or `require`), with an `exports` field
+* `DEPS`: update to `moddle@8`, `moddle-xml@12` and `min-dash@5`
+* `CHORE`: build `dist/index.js` with Rollup, and run the tests on it with mocha 11 instead of `@babel/register`
+* `FIX`: read and write `standardEvent` of `cmmn:PlanItemStartTrigger` and `cmmn:CaseFileItemStartTrigger` as a child element, as CMMN 1.1 defines it ([jylups/cmmn-js-env#18](https://github.com/jylups/cmmn-js-env/issues/18))
+
+### Breaking Changes
+
+* `CmmnModdle#fromXML` and `#toXML` return Promises; they no longer take a callback. `fromXML` resolves with `{ rootElement, references, warnings, elementsById }`, and an error it rejects with has the `warnings` collected so far. `toXML` resolves with `{ xml }`.
+* The package is an ES module (`"type": "module"`). Its `exports` field allows the main entry, `resources/*` and `package.json`; other deep imports such as `lib/*` are no longer possible.
+* moddle 8 and moddle-xml 12 are ES modules only; consume them, and this package, from Node 20.12 or later or through a bundler.
 
 ## 5.1.0
 

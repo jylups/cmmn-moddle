@@ -1,6 +1,7 @@
 import fs from 'fs';
 
-import SimpleCmmnModdle from '../';
+// test the bundle that is published; `npm test` builds it first
+import SimpleCmmnModdle from '../dist/index.js';
 
 export function ensureDirExists(dir) {
 

@@ -1,43 +1,43 @@
-import expect from './expect';
+import expect from './expect.js';
 
 import SchemaValidator from 'xsd-schema-validator';
 
 import {
   readFile
-} from './helper';
+} from './helper.js';
 
 var CMMN_XSD = 'resources/cmmn/xsd/CMMN11.xsd';
 
 
-export function fromFile(moddle, file, done) {
+export function fromFile(moddle, file) {
   var fileContents = readFile(file);
 
-  moddle.fromXML(fileContents, 'cmmn:Definitions', done);
+  return moddle.fromXML(fileContents, 'cmmn:Definitions');
 }
 
 
-export function toXML(element, opts, done) {
-  element.$model.toXML(element, opts, done);
+export function toXML(element, opts) {
+  return element.$model.toXML(element, opts);
 }
 
 
-export function validate(err, xml, done) {
-
-  if (err) {
-    return done(err);
-  }
+export function validate(xml) {
 
   if (!xml) {
-    return done(new Error('XML is not defined'));
+    return Promise.reject(new Error('XML is not defined'));
   }
 
-  SchemaValidator.validateXML(xml, CMMN_XSD, function(err, result) {
+  return new Promise(function(resolve, reject) {
 
-    if (err) {
-      return done(err);
-    }
+    SchemaValidator.validateXML(xml, CMMN_XSD, function(err, result) {
 
-    expect(result.valid).to.be.true;
-    done();
+      if (err) {
+        return reject(err);
+      }
+
+      expect(result.valid).to.be.true;
+
+      resolve();
+    });
   });
 }

@@ -1,3 +1,3 @@
 export {
   default
-} from './lib/simple';
+} from './lib/simple.js';

@@ -4,7 +4,7 @@
 
 > Maintained fork of [bpmn-io/cmmn-moddle](https://github.com/bpmn-io/cmmn-moddle), which is no longer developed, for the [Flowable CMMN editor](https://github.com/jylups/cmmn-js-env). It is published as `@jylups/cmmn-moddle` from version `5.1.0`.
 
-> This library exposes [ES modules](http://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules). Bundle it for the browser with an ES module aware bundler such as [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org); in Node, compile it with a transpiler such as [@babel/register](https://babeljs.io/docs/babel-register).
+> This library is an [ES module](https://nodejs.org/api/esm.html). Import it in Node 20.12 or later (`require` works too), or bundle it for the browser with an ES module aware bundler such as [Webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org).
 
 Read and write CMMN 1.1 diagram files in NodeJS and the browser.
 
@@ -30,23 +30,31 @@ var xmlStr =
   '</cmmn:definitions>';
 
 
-moddle.fromXML(xmlStr, function(err, definitions) {
+var {
+  rootElement: definitions,
+  warnings
+} = await moddle.fromXML(xmlStr);
 
-  // update id attribute
-  definitions.set('id', 'NEW ID');
+if (warnings.length) {
+  console.log('import warnings', warnings);
+}
 
-  // add a root element
-  var cmmnCase = moddle.create('cmmn:Case', { id: 'MyCase_1' });
-  definitions.get('cases').push(cmmnCase);
+// update id attribute
+definitions.set('id', 'NEW ID');
 
-  moddle.toXML(definitions, function(err, xmlStrUpdated) {
+// add a case
+var cmmnCase = moddle.create('cmmn:Case', { id: 'MyCase_1' });
+definitions.get('cases').push(cmmnCase);
 
-    // xmlStrUpdated contains new id and the added process
+var {
+  xml: xmlStrUpdated
+} = await moddle.toXML(definitions);
 
-  });
-
-});
+// xmlStrUpdated contains the new id and the added case
 ```
+
+
+`fromXML` and `toXML` return Promises. `fromXML` resolves with `{ rootElement, references, warnings, elementsById }`, and an error it rejects with carries the `warnings` collected so far. Version `6.0.0` replaced the callbacks of earlier versions.
 
 
 ## Resources
@@ -59,7 +67,7 @@ moddle.fromXML(xmlStr, function(err, definitions) {
 
 To run the test suite that includes XSD schema validation you must have a Java JDK installed and properly exposed through the `JAVA_HOME` variable.
 
-Execute the test via
+The tests run against the bundle in `dist/`, which `npm test` builds first. Execute the test via
 
 ```
 npm test

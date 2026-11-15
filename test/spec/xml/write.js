@@ -1,13 +1,12 @@
-import expect from '../../expect';
+import expect from '../../expect.js';
 
 import {
-  assign,
-  isFunction
+  assign
 } from 'min-dash';
 
 import {
   createModdle
-} from '../../helper';
+} from '../../helper.js';
 
 
 describe('cmmn-moddle - write', function() {
@@ -15,16 +14,12 @@ describe('cmmn-moddle - write', function() {
   var moddle = createModdle();
 
 
-  function write(element, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
+  function write(element, options) {
 
     // skip preamble for tests
     options = assign({ preamble: false }, options);
 
-    moddle.toXML(element, options, callback);
+    return moddle.toXML(element, options);
   }
 
 
@@ -32,7 +27,7 @@ describe('cmmn-moddle - write', function() {
 
     describe('cmmn', function() {
 
-      it('PlanItemDefinition#DefaultControl', function(done) {
+      it('PlanItemDefinition#DefaultControl', async function() {
 
         // given
         var control = moddle.create('cmmn:PlanItemControl');
@@ -47,16 +42,15 @@ describe('cmmn-moddle - write', function() {
           '</cmmn:humanTask>';
 
         // when
-        write(humanTask, function(err, result) {
+        var {
+          xml: result
+        } = await write(humanTask);
 
-          // then
-          expect(result).to.eql(expectedXML);
-
-          done(err);
-        });
+        // then
+        expect(result).to.eql(expectedXML);
       });
 
-      it('PlanItem#ItemControl', function(done) {
+      it('PlanItem#ItemControl', async function() {
 
         // given
         var control = moddle.create('cmmn:PlanItemControl');
@@ -79,16 +73,15 @@ describe('cmmn-moddle - write', function() {
           '</cmmn:planItem>';
 
         // when
-        write(planItem, function(err, result) {
+        var {
+          xml: result
+        } = await write(planItem);
 
-          // then
-          expect(result).to.eql(expectedXML);
-
-          done(err);
-        });
+        // then
+        expect(result).to.eql(expectedXML);
       });
 
-      it('DiscretionaryItem#ItemControl', function(done) {
+      it('DiscretionaryItem#ItemControl', async function() {
 
         // given
         var control = moddle.create('cmmn:PlanItemControl');
@@ -103,17 +96,62 @@ describe('cmmn-moddle - write', function() {
           '</cmmn:discretionaryItem>';
 
         // when
-        write(discretionaryItem, function(err, result) {
+        var {
+          xml: result
+        } = await write(discretionaryItem);
 
-          // then
-          expect(result).to.eql(expectedXML);
-
-          done(err);
-        });
+        // then
+        expect(result).to.eql(expectedXML);
       });
 
 
-      it('Definitions', function(done) {
+      it('PlanItemStartTrigger#standardEvent', async function() {
+
+        // given
+        var startTrigger = moddle.create('cmmn:PlanItemStartTrigger', {
+          id: 'PlanItemStartTrigger_1',
+          standardEvent: 'complete'
+        });
+
+        var expectedXML =
+          '<cmmn:planItemStartTrigger xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" id="PlanItemStartTrigger_1">' +
+             '<cmmn:standardEvent>complete</cmmn:standardEvent>' +
+          '</cmmn:planItemStartTrigger>';
+
+        // when
+        var {
+          xml: result
+        } = await write(startTrigger);
+
+        // then
+        expect(result).to.eql(expectedXML);
+      });
+
+
+      it('CaseFileItemStartTrigger#standardEvent', async function() {
+
+        // given
+        var startTrigger = moddle.create('cmmn:CaseFileItemStartTrigger', {
+          id: 'CaseFileItemStartTrigger_1',
+          standardEvent: 'update'
+        });
+
+        var expectedXML =
+          '<cmmn:caseFileItemStartTrigger xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" id="CaseFileItemStartTrigger_1">' +
+             '<cmmn:standardEvent>update</cmmn:standardEvent>' +
+          '</cmmn:caseFileItemStartTrigger>';
+
+        // when
+        var {
+          xml: result
+        } = await write(startTrigger);
+
+        // then
+        expect(result).to.eql(expectedXML);
+      });
+
+
+      it('Definitions', async function() {
 
         // given
         var planItem = moddle.create('cmmn:PlanItem', {
@@ -164,13 +202,12 @@ describe('cmmn-moddle - write', function() {
           '</cmmn:definitions>';
 
         // when
-        write(definitionsElement, function(err, result) {
+        var {
+          xml: result
+        } = await write(definitionsElement);
 
-          // then
-          expect(result).to.eql(expectedXML);
-
-          done(err);
-        });
+        // then
+        expect(result).to.eql(expectedXML);
       });
 
     });
