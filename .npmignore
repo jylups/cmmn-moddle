@@ -1,3 +1,5 @@
 test/
 .github/
 .eslintrc
+rollup.config.js
+.eslintignore

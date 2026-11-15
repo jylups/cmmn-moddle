@@ -1,42 +1,43 @@
-import expect from '../../expect';
+import expect from '../../expect.js';
 
 import {
   createModdle
-} from '../../helper';
+} from '../../helper.js';
 
 import {
   fromFile as readFromFile,
   validate,
   toXML
-} from '../../xml-helper';
+} from '../../xml-helper.js';
 
 
 describe('cmmn-moddle - edit', function() {
 
   var moddle = createModdle();
 
-  function fromFile(file, done) {
-    readFromFile(moddle, file, done);
+  function fromFile(file) {
+    return readFromFile(moddle, file);
   }
 
 
   describe('save after change', function() {
 
-    it('should serialize changed name', function(done) {
+    it('should serialize changed name', async function() {
 
       // given
-      fromFile('test/fixtures/cmmn/simple.cmmn', function(err, result) {
+      var {
+        rootElement: result
+      } = await fromFile('test/fixtures/cmmn/simple.cmmn');
 
-        result.cases[0].name = 'OTHER CASE';
+      result.cases[0].name = 'OTHER CASE';
 
-        // when
-        toXML(result, { format: true }, function(err, xml) {
-          expect(xml).to.contain('name="OTHER CASE"');
+      // when
+      var {
+        xml
+      } = await toXML(result, { format: true });
 
-          done(err);
-        });
-      });
-
+      // then
+      expect(xml).to.contain('name="OTHER CASE"');
     });
 
   });
@@ -48,22 +49,41 @@ describe('cmmn-moddle - edit', function() {
     // validator can take several seconds on a fresh CI runner
     this.timeout(30000);
 
-    it('should valid diagram', function(done) {
+    it('should valid diagram', async function() {
 
       // given
-      fromFile('test/fixtures/cmmn/roundtrip.cmmn', function(err, result) {
+      var {
+        rootElement: result
+      } = await fromFile('test/fixtures/cmmn/roundtrip.cmmn');
 
-        if (err) {
-          return done(err);
-        }
+      // when
+      var {
+        xml
+      } = await toXML(result, { format: true });
 
-        // when
-        toXML(result, { format: true }, function(err, xml) {
-          validate(err, xml, done);
-        });
+      // then
+      await validate(xml);
+    });
 
-      });
 
+    it('should keep start trigger events', async function() {
+
+      // given
+      var {
+        rootElement: result
+      } = await fromFile('test/fixtures/cmmn/start-triggers.cmmn');
+
+      // when
+      var {
+        xml
+      } = await toXML(result, { format: true });
+
+      // then
+      expect(xml).to.contain('<cmmn:standardEvent>complete</cmmn:standardEvent>');
+      expect(xml).to.contain('<cmmn:standardEvent>update</cmmn:standardEvent>');
+      expect(xml).not.to.contain('standardEvent="');
+
+      await validate(xml);
     });
 
   });

@@ -1079,8 +1079,7 @@
       "properties": [
         {
           "name": "standardEvent",
-          "type": "String",
-          "isAttr": true
+          "type": "String"
         },
         {
           "name": "sourceRef",
@@ -1098,8 +1097,7 @@
       "properties": [
         {
           "name": "standardEvent",
-          "type": "String",
-          "isAttr": true
+          "type": "String"
         },
         {
           "name": "sourceRef",

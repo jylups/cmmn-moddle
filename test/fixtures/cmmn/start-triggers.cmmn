@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmmn:definitions xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" id="Definitions_1" targetNamespace="http://bpmn.io/schema/cmmn">
+  <cmmn:caseFileItemDefinition id="CaseFileItemDefinition_1" />
+  <cmmn:case id="Case_1">
+    <cmmn:caseFileModel id="CaseFileModel_1">
+      <cmmn:caseFileItem id="CaseFileItem_1" definitionRef="CaseFileItemDefinition_1" />
+    </cmmn:caseFileModel>
+    <cmmn:casePlanModel id="CasePlanModel_1">
+      <cmmn:planItem id="PI_Task_1" definitionRef="Task_1" />
+      <cmmn:planItem id="PI_TimerEventListener_1" definitionRef="TimerEventListener_1" />
+      <cmmn:planItem id="PI_TimerEventListener_2" definitionRef="TimerEventListener_2" />
+      <cmmn:task id="Task_1" />
+      <cmmn:timerEventListener id="TimerEventListener_1">
+        <cmmn:planItemStartTrigger id="PlanItemStartTrigger_1" sourceRef="PI_Task_1">
+          <cmmn:standardEvent>complete</cmmn:standardEvent>
+        </cmmn:planItemStartTrigger>
+      </cmmn:timerEventListener>
+      <cmmn:timerEventListener id="TimerEventListener_2">
+        <cmmn:caseFileItemStartTrigger id="CaseFileItemStartTrigger_1" sourceRef="CaseFileItem_1">
+          <cmmn:standardEvent>update</cmmn:standardEvent>
+        </cmmn:caseFileItemStartTrigger>
+      </cmmn:timerEventListener>
+    </cmmn:casePlanModel>
+  </cmmn:case>
+</cmmn:definitions>
